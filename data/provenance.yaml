@@ -1,0 +1,65 @@
+# Where this data comes from and what was done to it.
+
+source:
+  name: WorldPop Global2, release R2025A version v1
+  publisher: WorldPop, School of Geography and Environmental Science, University of Southampton
+  site: https://www.worldpop.org/
+  host: https://data.worldpop.org/
+  catalogue: WorldPop STAC API, items of collection JPN
+  fetched: 2026-10-02
+  reference_recorded: 2026-09-28
+  licence:
+    applied: CC BY 4.0
+    attribution_required: true
+    share_alike: false
+  dois:
+    population_100m: 10.5258/SOTON/WP00839
+    population_1km: 10.5258/SOTON/WP00840
+    age_and_sex_1km: 10.5258/SOTON/WP00842
+    degree_of_urbanisation: 10.5258/SOTON/WP00879
+
+snapshot:
+  vintage: 2026-01
+  note: |
+    The release name does not pin the bytes. Within R2025A v1 the files carry
+    Last-Modified dates of 2025-07 and 2025-08 (population, age and sex) and
+    2026-01-18 (degree of urbanisation, all 32). The month in the name is the
+    latest. On 2026-10-02 every file came back with the sha256 recorded on
+    2026-09-28 and the same Last-Modified.
+  last_modified:
+    population_100m_and_1km: 2025-07 and 2025-08
+    age_and_sex: 2025-08
+    degree_of_urbanisation: 2026-01-18
+  server: |
+    data.worldpop.org advertises Accept-Ranges and sends whole files with 200.
+    About 400 KB/s a connection; four at a time took two hours, the sixteen
+    100 m rasters 15 to 20 minutes each.
+
+contents:
+  files: 1024
+  years: 2015 to 2030
+  population_100m: {files: 16, bytes: 1742800028}
+  population_1km: {files: 16}
+  age_and_sex_1km: {files: 960, per_year: 60, sexes: [female, male, total], age_bands_from: [0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90]}
+  degree_of_urbanisation: {files: 32, per_year: 2, levels: [1, 2]}
+  raw_bytes: 3858001552
+  people_100m:
+    2015: 127358353
+    2020: 126574853
+    2025: 123434903
+    2030: 119948756
+
+integrity:
+  note: Checked by scripts/02_verify.py on the originals.
+  every_file_has_the_recorded_sha256: true
+  every_file_has_the_recorded_valid_pixel_count_and_sum: true
+  sixteen_years_of_every_product: true
+
+modifications:
+  raw: none. WorldPop's GeoTIFFs, byte for byte, under WorldPop's paths.
+  cog:
+    - the same raster as a Cloud Optimized GeoTIFF; DEFLATE with a predictor, 512 blocks, overviews made automatically
+    - nearest-neighbour overviews for the degree of urbanisation, whose values are class codes
+    - every value at full resolution compared with the original and equal; the overviews are new
+    - made with rasterio's bundled GDAL (COG driver) with the creation options recorded for each file
+  parquet: parquet/files.parquet lists the files; it is new, computed from the reference and the files.

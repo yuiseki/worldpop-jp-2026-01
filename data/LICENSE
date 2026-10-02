@@ -1,0 +1,67 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Everything under raw/ and cog/ comes from WorldPop (https://www.worldpop.org/),
+School of Geography and Environmental Science, University of Southampton,
+release R2025A version v1, as published at https://data.worldpop.org/. WorldPop
+publishes these datasets under CC BY 4.0 (the license of each STAC item and of
+each dataset page).
+
+Cite the datasets as WorldPop gives them. Each product has its own DOI:
+
+  Age and Sex Structures 1km (doi:10.5258/SOTON/WP00842)
+
+    Bondarenko M., Priyatikanto R., Tejedor-Garavito N., Zhang W., McKeen T.,
+    Cunningham A., Woods T., Hilton J., Cihan D., Nosatiuk B., Brinkhoff T.,
+    Tatem A., Sorichetta A.. 2025 Estimates of 2015-2030 total number of people
+    per grid square broken down by gender and age groupings at a resolution of
+    30 arc (approximately 1km at the equator) R2025A version v1. Global
+    Demographic Data Project - Funded by The Bill and Melinda Gates Foundation
+    (INV-045237). WorldPop - School of Geography and Environmental Science,
+    University of Southampton DOI:10.5258/SOTON/WP00842
+
+  Degree of Urbanisation (doi:10.5258/SOTON/WP00879)
+
+    Bondarenko M., Zhang W., Tejedor-Garavito N., Nosatiuk B., Tatem A.,
+    Sorichetta A..Degree of Urbanisation classes using WorldPop Global2 R2025A
+    population data with theGHSL GHS-DUG tool. DEGURBA Project - Funded by
+    European Commission. WorldPop -School of Geography and Environmental
+    Science, University of Southampton 2026. DOI:10.5258/SOTON/WP00879
+
+  Population 100m (doi:10.5258/SOTON/WP00839)
+
+    Bondarenko M., Priyatikanto R., Tejedor-Garavito N., Zhang W., McKeen T.,
+    Cunningham A., Woods T., Hilton J., Cihan D., Nosatiuk B., Brinkhoff T.,
+    Tatem A., Sorichetta A.. 2025 Estimates of 2015-2030 total number of people
+    per grid square at a resolution of 3 arc (approximately 100m at the equator)
+    R2025A version v1. Global Demographic Data Project - Funded by The Bill and
+    Melinda Gates Foundation (INV-045237). WorldPop - School of Geography and
+    Environmental Science, University of Southampton. DOI:10.5258/SOTON/WP00839
+
+  Population 1km (doi:10.5258/SOTON/WP00840)
+
+    Bondarenko M., Priyatikanto R., Tejedor-Garavito N., Zhang W., McKeen T.,
+    Cunningham A., Woods T., Hilton J., Cihan D., Nosatiuk B., Brinkhoff T.,
+    Tatem A., Sorichetta A.. 2025 Estimates of 2015-2030 total number of people
+    per grid square at a resolution of 3 arc (approximately 100m at the equator)
+    R2025A version v1. Global Demographic Data Project - Funded by The Bill and
+    Melinda Gates Foundation (INV-045237). WorldPop - School of Geography and
+    Environmental Science, University of Southampton. DOI:10.5258/SOTON/WP00840
+
+The files under raw/ are WorldPop's own GeoTIFFs, byte for byte: each was
+compared with the sha256 recorded for it in scripts/REFERENCE.json of the
+source repository.
+
+The files under cog/ were made from them and are changed in form only: the
+same raster written as a Cloud Optimized GeoTIFF (DEFLATE compression with a
+predictor, 512 by 512 tiles, overviews; nearest-neighbour overviews for the
+degree of urbanisation, whose values are class codes). Every value at full
+resolution was compared with the original and is equal; the overviews are
+new.
+
+parquet/files.parquet is a list of the files with their sizes, checksums and
+the count and sum of their valid pixels, computed from the originals.
+
+The code that fetches, checks and converts is MIT, in the repository this
+dataset was built from (https://github.com/yuiseki/worldpop-jp-2026-01),
+and does not apply here.
