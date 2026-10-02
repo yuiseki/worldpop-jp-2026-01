@@ -3,8 +3,9 @@
 
 The 1,024 originals under raw/ are WorldPop's own bytes, each checked against
 the sha256 recorded in scripts/REFERENCE.json, and go up unchanged beside the
-1,024 COGs made from them. About 8.4 GB in 2,000 files, so the upload uses
-upload_large_folder, which resumes where it stopped.
+1,024 COGs made from them. About 8.4 GB in 2,000 files. huggingface_hub 2.x
+has no upload_large_folder; its upload_folder streams through hf_xet and
+commits a large folder in several batches by itself.
 
     uv run python src/publish.py             # dry run
     uv run python src/publish.py --push
@@ -60,7 +61,7 @@ def main() -> int:
 
     api = HfApi()
     api.create_repo(a.repo, repo_type="dataset", exist_ok=True, private=False)
-    api.upload_large_folder(
+    api.upload_folder(
         repo_id=a.repo,
         folder_path=str(data),
         repo_type="dataset",
