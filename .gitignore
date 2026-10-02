@@ -12,3 +12,5 @@ __pycache__/
 .venv/
 data/download.log
 data/build.log
+data/upload.log
+data/.cache/
